@@ -57,7 +57,6 @@ func getdish(code string) (dish string, rate int){
 
 func main(){
     
-    var code string
     var str string
     var total int
     
@@ -68,41 +67,28 @@ func main(){
         sum:=0
         
         fmt.Println("Please enter the order")
-        for code !="NEXT"{
+        var order string
+        var quantity int
+        for order !="NEXT"{
             
-            fmt.Scanln(&code)
-            code=strings.ToUpper(code)
-            var order string
-            var quantity int
+            fmt.Scanln(&quantity, &order)
+            order=strings.ToUpper(order)
             
-            if code=="NEXT"{
+            if order=="NEXT"{
                 
                 for i:=0; i<len(tOrder); i++{
                     
                     dish,rate:=getdish(tOrder[i])
                     tPrice:= rate * tQuant[i]
-                    fmt.Println("Your order:", dish , "Rate:", rate ,"Quantity:", tQuant[i], "Toatl:", tPrice)
+                    fmt.Println("Your order:", dish , "Rate:", rate ,"Quantity:", tQuant[i], "Total:", tPrice)
                     sum=sum+tPrice
                     }
                     break
                 }
                 
-            for i:=0; i<len(code); i++{
-                
-                if code[i]>='0' && code[i]<='9'{
-                    
-                    quantity =(quantity*10)+int(code[i])
-                }else if (code[i]>='a' && code[i]<='z') || (code[i]<='A'&& code[i]>='Z'){
-                    
-                    order= order+string(code[i])
-                    order=strings.ToUpper(order)
-                }
-                
-            }
-            
             tQuant=append(tQuant,quantity)
             tOrder=append(tOrder,order)
-            fmt.Println("Enter NEXT for next customer or write the order to continue for same customer")
+            fmt.Println("Enter '0 NEXT' for next customer or write the order to continue for same customer")
             
         }
         fmt.Println("Your total is:", sum)
